@@ -8,10 +8,9 @@
     <img src="https://assets-lighthouse.alphacamp.co/uploads/image/file/16716/ExportedContentImage_00.png" alt="image"
       style="height: 200px; width: 200px; margin-top: 30px">
   </div>
-  <form action="/" method="POST">
-    <div class="mb-3; mt-5">
-      <input type="text" class="form-control" name="url" placeholder="Input URL here" value="{{newUrl}}">
-    </div>
-    <button type="submit" class="btn btn-outline-primary mt-4" style="width: 200px;">Shorten</button>
-  </form>
+  <div class="mb-3; mt-5">
+    <h1>Success! Please use this link :</h1>
+    <a href="{{ urlShorten }}"><h4>{{ urlShorten }}</h4></a>
+  </div>
+  <button type="submit" class="btn btn-primary mt-4" style="width: 100px;">Copy</button>
 </div>

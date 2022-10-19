@@ -13,15 +13,15 @@ db.on('error', () => {
 db.once('open', () => {
   URL_shortener.create(
     {
-      origin_url: 'https://www.google.com/',
+      origin_url: 'https://www.google.com',
       shorten_url: `http://localhost:3000/${generateCode()}`
     },
     {
-      origin_url: 'https://www.facebook.com/',
+      origin_url: 'https://www.facebook.com',
       shorten_url: `http://localhost:3000/${generateCode()}`
     },
     {
-      origin_url: 'https://developer.mozilla.org/en-US/',
+      origin_url: 'https://developer.mozilla.org/en-US',
       shorten_url: `http://localhost:3000/${generateCode()}`
     },
   )
