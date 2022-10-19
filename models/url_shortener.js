@@ -8,10 +8,6 @@ const urlshortenerSchema = new Schema({
   shorten_url: {
     type: String,
     required: true
-  },
-  shortenCode: {
-    type: String,
-    required: true
   }
 })
 
