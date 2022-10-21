@@ -1,14 +1,6 @@
-const mongoose = require('mongoose')
+const db = require('../../config/mongoose')
 const URL_shortener = require('../url_shortener')
 const generateCode = require('../../utilities/generateCode')
-
-mongoose.connect(process.env.MONGODB_URI, { useNewUrlParser: true, useUnifiedTopology: true })
-
-const db = mongoose.connection
-
-db.on('error', () => {
-  console.log('mongodb error!')
-})
 
 db.once('open', () => {
   URL_shortener.create(
@@ -28,5 +20,4 @@ db.once('open', () => {
     .then(() => {
       console.log('done!')
     })
-    .catch(error => console.log('error!'))
 })
