@@ -4,7 +4,7 @@ const router = express.Router()
 const URL_shortener = require('../models/url_shortener')
 const generateCode = require('../utilities/generateCode')
 const mainUrl = 'http://localhost:'
-const port = 3000
+const PORT = process.env.PORT || 3000
 
 // 渲染開始的畫面
 router.get('/', (req, res) => {
@@ -28,11 +28,11 @@ router.post('/', (req, res) => {
         return res.render('show', { urlShorten })
       } else {
         // 如果以上都是false，代表本來的資料庫沒有這筆資料，那就製造一個新的短網址
-        urlShorten = `${mainUrl}${port}/${generateCode()}`
+        urlShorten = `${mainUrl}${PORT}/${generateCode()}`
       }
       // 雖然短網址是用亂數產生，但避免會重複，所以再設一個條件式
       while (urlList.some((eachUrl) => eachUrl.shorten_url === urlShorten)) {
-        urlShorten = `${mainUrl}${port}/${generateCode()}`
+        urlShorten = `${mainUrl}${PORT}/${generateCode()}`
       }
       // 最後再用create()替資料庫新增這筆資料
       return URL_shortener.create({
@@ -50,7 +50,7 @@ router.get('/:shorten', (req, res) => {
   URL_shortener.find({})
     .lean()
     .then((urlList) => {
-      url = urlList.find((eachUrl) => eachUrl.shorten_url === `${mainUrl}${port}/${shortenCode}`)
+      url = urlList.find((eachUrl) => eachUrl.shorten_url === `${mainUrl}${PORT}/${shortenCode}`)
       if (url) {
         console.log(url)
         return res.redirect(url.origin_url)
