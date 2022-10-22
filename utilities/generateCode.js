@@ -1,3 +1,5 @@
+// 短網址5碼亂數製造函式
+
 function generateCode() {
   let shortenCode = ''
   const lowerCaseLetters = 'abcdefghijklmnopqrstuvwxyz'

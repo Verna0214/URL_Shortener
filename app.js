@@ -1,8 +1,8 @@
 const express = require('express')
 const exphbs = require('express-handlebars')
 const bodyParser = require('body-parser')
-const routes = require('./routes')
-require('./config/mongoose')
+const routes = require('./routes') // 路由重構後載入
+require('./config/mongoose') // mongoose重構後載入
 
 const mainUrl = 'http://localhost:'
 const port = 3000
