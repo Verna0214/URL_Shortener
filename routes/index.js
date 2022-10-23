@@ -17,21 +17,14 @@ router.post('/', (req, res) => {
   // 設定一個空的字串存放待會找出的資料
   let urlShorten = ''
 
-  URL_shortener.find() // 先取出所有的資料
+  URL_shortener.findOne({ origin_url: newUrl }) // 先取出所有的資料
     .lean()
-    .then((urlList) => {
-      // 使用find()過濾每一筆資料，先確認原本的資料庫有沒有這筆網址，如果有的話就不要重新製造新的短網址
-      urlShorten = urlList.find((eachUrl) => eachUrl.origin_url === newUrl)
-      // 如果是true，那就以這筆資料的短網址渲染頁面
-      if (urlShorten) {
-        urlShorten = urlShorten.shorten_url
-        return res.render('show', { urlShorten })
+    .then((urlData) => {
+      if (urlData) {
+        urlShorten = urlData.shorten_url
+        return
       } else {
         // 如果以上都是false，代表本來的資料庫沒有這筆資料，那就製造一個新的短網址
-        urlShorten = `${mainUrl}${PORT}/${generateCode()}`
-      }
-      // 雖然短網址是用亂數產生，但避免會重複，所以再設一個條件式
-      while (urlList.some((eachUrl) => eachUrl.shorten_url === urlShorten)) {
         urlShorten = `${mainUrl}${PORT}/${generateCode()}`
       }
       // 最後再用create()替資料庫新增這筆資料
@@ -41,19 +34,24 @@ router.post('/', (req, res) => {
       })
     })
     .then(() => res.render('show', { urlShorten }))
-    .catch(error => console.log(error))
+    .catch(err => {
+      console.log(err)
+      res.render('error', { errorMsg: err.message })
+    })
 })
 
 //用動態路由去抓到短網址後面的五碼字母，再返回資料庫去找尋原始網址，並用redirect導向網站
 router.get('/:shorten', (req, res) => {
   const shortenCode = req.params.shorten
-  URL_shortener.find({})
+
+  URL_shortener.findOne({ shorten_url: `${mainUrl}${PORT}/${shortenCode}` })
     .lean()
-    .then((urlList) => {
-      url = urlList.find((eachUrl) => eachUrl.shorten_url === `${mainUrl}${PORT}/${shortenCode}`)
+    .then((url) => {
       if (url) {
         console.log(url)
         return res.redirect(url.origin_url)
+      } else {
+        return res.redirect('/')
       }
     })
     .catch(error => console.log(error))
