@@ -46,7 +46,7 @@ $ set MONGODB_URI="mongodb+srv://username:password@cluster0.qf4d2sz.mongodb.net/
 
 5. Start project
 ```
-# npm run seed
+$ npm run seed
 ```
 
 ```
