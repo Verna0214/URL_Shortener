@@ -2,18 +2,19 @@
 const express = require('express')
 const exphbs = require('express-handlebars')
 
+const router = require('./routes')
+require('./config/mongoose')
+
 const app = express()
 const port = process.env.PORT || 3000
-require('./config/mongoose')
+
 
 // set hbs engine
 app.engine('hbs', exphbs({ extname: '.hbs', defaultLayout: 'main' }))
 app.set('view engine', 'hbs')
 
 // routers
-app.get('/', (req, res) => {
-  res.render('index')
-})
+app.use(router)
 
 // start server
 app.listen(port, () =>{
