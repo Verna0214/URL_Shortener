@@ -1,6 +1,7 @@
 // require related modules
 const express = require('express')
 const exphbs = require('express-handlebars')
+const session = require('express-session')
 
 const router = require('./routes')
 require('./config/mongoose')
@@ -12,6 +13,14 @@ const port = process.env.PORT || 3000
 // set hbs engine
 app.engine('hbs', exphbs({ extname: '.hbs', defaultLayout: 'main' }))
 app.set('view engine', 'hbs')
+
+// set session
+app.use(session({
+  secret: 'SecretKey',
+  resave: false,
+  saveUninitialized: true
+}))
+
 // use body-parser
 app.use(express.urlencoded({ extended: true }))
 
