@@ -12,6 +12,8 @@ const port = process.env.PORT || 3000
 // set hbs engine
 app.engine('hbs', exphbs({ extname: '.hbs', defaultLayout: 'main' }))
 app.set('view engine', 'hbs')
+// use body-parser
+app.use(express.urlencoded({ extended: true }))
 
 // routers
 app.use(router)
