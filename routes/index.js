@@ -3,12 +3,13 @@ const router = express.Router()
 const generateShortURL = require('../utilities/generateShortURL')
 const URL = require('../models/url')
 const users = require('./modules/users')
+const { authenticator } = require('../middleware/auth')
 
 // users
 router.use('/users', users)
 
 // create
-router.post('/', (req, res) => {
+router.post('/', authenticator, (req, res) => {
   if (!req.body.url) return res.redirect('/')
 
   const shortURL = generateShortURL()
@@ -26,7 +27,7 @@ router.post('/', (req, res) => {
 })
 
 // view history
-router.get('/history', (req, res) => {
+router.get('/history', authenticator, (req, res) => {
   return URL.find({})
     .lean()
     .then((urls) => res.render('history', { urls }))
@@ -44,7 +45,7 @@ router.get('/:shortURL', (req, res) => {
 })
 
 // index
-router.get('/', (req, res) => {
+router.get('/', authenticator, (req, res) => {
   res.render('index')
 })
 
