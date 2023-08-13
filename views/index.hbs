@@ -1,28 +1,5 @@
 <div class="container m-5 d-flex flex-column align-items-center">
-{{#if shortURL}}
-  <h1 style="letter-spacing: 2px">WoW! There is your short URL results.</h1>
-  <img class="my-5" src="https://assets-lighthouse.alphacamp.co/uploads/image/file/16716/ExportedContentImage_00.png"
-    alt="bond.pic" style="max-height: 200px; max-width: 200px;">
 
-  <form action="/" method="POST" class="text-center">
-    <h2>Success!</h2>
-    <p id="generatedURL">{{origin}}/{{shortURL}}</p>
-    <div class="d-flex justify-content-center mt-5">
-      <button onclick="copy()" class="copy btn btn-primary"
-        style="height: 40px; width: 130px; border-radius: 15px; font-weight: 600; letter-spacing: 1px;">Copy</button>
-    </div>
-  </form>
-  
-  <script>
-    function copy() {
-      const URL = document.getElementById("generatedURL")
-      navigator.clipboard.writeText(URL.innerText)
-        .then(() => alert('copied'))
-        .catch(error => console.log(error))
-    }
-  </script>
-
-{{else}}
   <h1 style="letter-spacing: 2px">Explore our short URL generator</h1>
   <img class="my-5" src="https://assets-lighthouse.alphacamp.co/uploads/image/file/16716/ExportedContentImage_00.png" alt="bond.pic" style="max-height: 200px; max-width: 200px;">
 
@@ -32,5 +9,5 @@
       <button type="submit" class="btn btn-outline-primary" style="height: 40px; width: 130px; border-radius: 15px; font-weight: 600; letter-spacing: 1px;">Shorten</button>
     </div>
   </form>
-{{/if}}
+  
 </div>
