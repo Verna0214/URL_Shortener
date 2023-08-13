@@ -28,8 +28,10 @@ router.post('/', authenticator, (req, res) => {
 
 // view history
 router.get('/history', authenticator, (req, res) => {
-  return URL.find({})
+  const userId = req.user._id
+  return URL.find({ userId })
     .lean()
+    .sort({ _id: 'asc' })
     .then((urls) => res.render('history', { urls }))
     .catch(error => console.log(error))
 })
