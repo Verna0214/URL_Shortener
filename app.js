@@ -4,6 +4,7 @@ const exphbs = require('express-handlebars')
 const session = require('express-session')
 
 const router = require('./routes')
+const usePassport = require('./config/passport')
 require('./config/mongoose')
 
 const app = express()
@@ -23,6 +24,9 @@ app.use(session({
 
 // use body-parser
 app.use(express.urlencoded({ extended: true }))
+
+// passport
+usePassport(app)
 
 // routers
 app.use(router)
