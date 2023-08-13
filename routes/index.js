@@ -2,8 +2,12 @@ const express = require('express')
 const router = express.Router()
 const generateShortURL = require('../utilities/generateShortURL')
 const URL = require('../models/url')
+const users = require('./modules/users')
 
-// create url
+// users
+router.use('/users', users)
+
+// create
 router.post('/', (req, res) => {
   if (!req.body.url) return res.redirect('/')
 
