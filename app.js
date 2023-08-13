@@ -4,6 +4,7 @@ const exphbs = require('express-handlebars')
 
 const app = express()
 const port = process.env.PORT || 3000
+require('./config/mongoose')
 
 // set hbs engine
 app.engine('hbs', exphbs({ extname: '.hbs', defaultLayout: 'main' }))
