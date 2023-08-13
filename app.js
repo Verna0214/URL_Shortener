@@ -18,7 +18,7 @@ app.set('view engine', 'hbs')
 
 // set session
 app.use(session({
-  secret: 'SecretKey',
+  secret: process.env.SESSION_SECRET,
   resave: false,
   saveUninitialized: true
 }))
