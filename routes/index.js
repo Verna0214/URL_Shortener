@@ -21,6 +21,14 @@ router.post('/', (req, res) => {
     .catch(error => console.log(error))
 })
 
+// view history
+router.get('/history', (req, res) => {
+  return URL.find({})
+    .lean()
+    .then((urls) => res.render('history', { urls }))
+    .catch(error => console.log(error))
+})
+
 // copy short url and redirect origin url
 router.get('/:shortURL', (req, res) => {
   const shortURL = req.params.shortURL
@@ -31,6 +39,7 @@ router.get('/:shortURL', (req, res) => {
     .catch(error => console.log(error))
 })
 
+// index
 router.get('/', (req, res) => {
   res.render('index')
 })

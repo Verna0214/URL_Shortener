@@ -1,0 +1,23 @@
+<div class="container my-5">
+  <table class="table">
+    <thead>
+      <tr>
+        <th scope="col">#</th>
+        <th scope="col">Origin URL</th>
+        <th scope="col">Short URL</th>
+      </tr>
+    </thead>
+    <tbody>
+
+      {{#each urls}}
+      <tr>
+        <th scope="row">{{@index}}</th>
+        <td>{{this.origin_url}}</td>
+        <td>{{this.shorten_url}}</td>
+      </tr>
+      {{/each}}
+
+    </tbody>
+  </table>
+
+</div>
