@@ -19,7 +19,7 @@ router.post('/', authenticator, (req, res) => {
       if (data) {
         return data;
       } else {
-        return URL.create({ origin_url: req.body.url, shorten_url: shortURL });
+        return URL.create({ origin_url: req.body.url, shorten_url: shortURL, userId: req.user._id });
       }
     })
     .then((data) => res.render('shorturl', { origin: req.headers.origin, shortURL: data.shorten_url }))
@@ -42,7 +42,13 @@ router.get('/:shortURL', (req, res) => {
 
   return URL.findOne({ shorten_url: shortURL })
     .lean()
-    .then((data) => res.redirect(data.origin_url))
+    .then((data) => {
+      if (data && data.origin_url) {
+        res.redirect(data.origin_url);
+      } else {
+        res.status(404).send('URL not found');
+      }
+    })
     .catch(error => console.log(error))
 })
 
