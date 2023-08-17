@@ -1,4 +1,7 @@
 const bcrypt = require('bcryptjs')
+if (process.env.NODE_ENV !== 'production') {
+  require('dotenv').config()
+}
 const URL = require('../url')
 const User = require('../user')
 const db = require('../../config/mongoose')
@@ -22,7 +25,7 @@ db.once('open', () => {
       email: SEED_USER.email,
       password: hash
     }))
-    .then(user => {
+    .then((user) => {
       const userId = user._id
       const urlPromises = SEED_URL.map((url) => {
         return URL.create({

@@ -11,18 +11,39 @@ router.post('/login', passport.authenticate('local', {
 
 router.post('/register', (req, res) => {
   const { name, email, password, confirmPassword } = req.body
+  const errors = []
+
+  if ( !name || !email || !password || !confirmPassword ) {
+    errors.push('All forms are required!')
+  }
+
+  if (password !== confirmPassword) {
+    errors.push('Password and confirmPassword are different.')
+  } 
+
+  if (errors.length) {
+    return res.render('register', {
+      errors,
+      name,
+      email,
+      password,
+      confirmPassword
+    })
+  }
 
   User.findOne({ email })
     .then((user) => {
       if (user) {
-        console.log('User already exists.')
-        res.render('register', {
+        errors.push('User already exists.')
+        return res.render('register', {
+          errors,
           name,
           email,
           password,
           confirmPassword
         })
       }
+      
       return bcrypt
         .genSalt(10)
         .then(salt => bcrypt.hash(password, salt))

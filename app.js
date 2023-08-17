@@ -9,7 +9,7 @@ const usePassport = require('./config/passport')
 require('./config/mongoose')
 
 const app = express()
-const port = process.env.PORT || 3000
+const PORT = process.env.PORT
 
 
 // set hbs engine
@@ -44,6 +44,6 @@ app.use((req, res, next) => {
 app.use(router)
 
 // start server
-app.listen(port, () =>{
-  console.log(`The express is running on http://localhost:${port}`)
+app.listen(PORT, () =>{
+  console.log(`The express is running on http://localhost:${PORT}`)
 })
